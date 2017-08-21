@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 JetITeam. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="ImproDev_EmailManager::manager"
+             title="Email Manager"
+             module="ImproDev_EmailManager"
+             sortOrder="40"
+             resource="ImproDev_EmailManager::manager"/>
+        <add id="ImproDev_EmailManager::email_manager"
+             title="Received Emails"
+             module="ImproDev_EmailManager"
+             sortOrder="50"
+             parent="ImproDev_EmailManager::manager"
+             action="emailmanager/grid"
+             resource="ImproDev_EmailManager::email_manager"/>
+    </menu>
+</config>

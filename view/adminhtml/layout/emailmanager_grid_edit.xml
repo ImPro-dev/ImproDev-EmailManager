@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Magento_Customer::js/bootstrap/customer-post-action.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="ImproDev\EmailManager\Block\Adminhtml\Grid\Edit" name="edit_row" />
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tabs" name="email_manager_edit_tabs">
+                <!--<block class="ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tab\General" name="email_manager_edit_tab_general" />-->
+                <!--<action method="addTab">-->
+                    <!--<argument name="name" xsi:type="string">general</argument>-->
+                    <!--<argument name="block" xsi:type="string">emailmanager_grid_edit_tab_general</argument>-->
+                <!--</action>-->
+                <!--<block class="ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tab\Item" name="email_manager_edit_tab_item" />-->
+                <!--<action method="addTab">-->
+                    <!--<argument name="name" xsi:type="string">item</argument>-->
+                    <!--<argument name="block" xsi:type="string">email_manager_edit_tab_item</argument>-->
+                <!--</action>-->
+            </block>
+        </referenceContainer>
+    </body>
+</page>

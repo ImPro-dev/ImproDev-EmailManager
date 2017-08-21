@@ -1,0 +1,6 @@
+
+/* Admin Custom CSS */
+
+.admin__menu #menu-improdev-emailmanager-manager.level-0 > a:before {
+    content: '\e613';
+}
