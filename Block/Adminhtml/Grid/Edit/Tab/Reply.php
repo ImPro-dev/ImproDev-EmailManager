@@ -2,14 +2,13 @@
 
 namespace ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tab;
 
-use ImproDev\EmailManager\Api\Data\GridInterface;
-use Magento\Config\Model\Config\Source\Enabledisable;
-use Magento\Backend\Block\Template\Context;
-use Magento\Backend\Block\Widget\Form\Generic;
-use Magento\Backend\Block\Widget\Tab\TabInterface;
-use Magento\Framework\Data\FormFactory;
-use Magento\Framework\Registry;
-use Magento\Store\Model\System\Store;
+use \ImproDev\EmailManager\Model\Status;
+use \Magento\Backend\Block\Template\Context;
+use \Magento\Backend\Block\Widget\Form\Generic;
+use \Magento\Backend\Block\Widget\Tab\TabInterface;
+use \Magento\Framework\Data\FormFactory;
+use \Magento\Framework\Registry;
+use \Magento\Cms\Model\Wysiwyg\Config;
 
 /**
  * Block general tab.
@@ -18,38 +17,23 @@ use Magento\Store\Model\System\Store;
  */
 class Reply extends Generic implements TabInterface
 {
-    /**
-     * @var Store
-     */
-    protected $_systemStore;
-
-    /**
-     * @var Enabledisable
-     */
-    protected $_enabledisable;
 
     /**
      * General constructor.
      *
-     * @param Store         $systemStore
-     * @param Enabledisable $enabledisable
      * @param Context       $context
      * @param Registry      $registry
      * @param FormFactory   $formFactory
      * @param array         $data
      */
     public function __construct(
-        Store $systemStore,
-        Enabledisable $enabledisable,
         Context $context,
         Registry $registry,
         FormFactory $formFactory,
-        \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
-        \ImproDev\EmailManager\Model\Status $options,
+        Config $wysiwygConfig,
+        Status $options,
         array $data = []
     ) {
-        $this->_systemStore = $systemStore;
-        $this->_enabledisable = $enabledisable;
         $this->_options = $options;
         $this->_wysiwygConfig = $wysiwygConfig;
         parent::__construct($context, $registry, $formFactory, $data);
@@ -121,14 +105,6 @@ class Reply extends Generic implements TabInterface
             'legend' => __('Reply to Email'),
         ]);
 
-//        if ($model->getId()) {
-//            $fieldset->addField('block_id', 'hidden', [
-//                'name' => 'block[block_id]',
-//            ]);
-//        }
-
-
-
         $fieldset->addField(
             'subject',
             'text',
@@ -170,16 +146,9 @@ class Reply extends Generic implements TabInterface
             ]
         );
 
-
         if ($model->getId()) {
             $form->setValues($model->getData());
         }
-//        else {
-//            $form->setValues([
-//                'status' => BlockInterface::STATUS_ENABLED,
-//                'store_id' => [0]
-//            ]);
-//        }
 
         return $form;
     }

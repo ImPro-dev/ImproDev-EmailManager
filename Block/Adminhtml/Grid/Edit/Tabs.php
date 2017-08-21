@@ -32,7 +32,9 @@ class Tabs extends BaseTabs
             [
                 'label' => __('Received Email'),
                 'title' => __('Received Email'),
-                'content' => $this->getLayout()->createBlock('ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tab\General')->toHtml(),
+                'content' => $this->getLayout()->createBlock(
+                    'ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tab\General'
+                )->toHtml(),
                 'active' => true
             ]
         );

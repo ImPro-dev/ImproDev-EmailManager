@@ -2,14 +2,12 @@
 
 namespace ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tab;
 
-use ImproDev\EmailManager\Api\Data\GridInterface;
-use Magento\Config\Model\Config\Source\Enabledisable;
-use Magento\Backend\Block\Template\Context;
-use Magento\Backend\Block\Widget\Form\Generic;
-use Magento\Backend\Block\Widget\Tab\TabInterface;
-use Magento\Framework\Data\FormFactory;
-use Magento\Framework\Registry;
-use Magento\Store\Model\System\Store;
+use \ImproDev\EmailManager\Model\Status;
+use \Magento\Backend\Block\Template\Context;
+use \Magento\Backend\Block\Widget\Form\Generic;
+use \Magento\Backend\Block\Widget\Tab\TabInterface;
+use \Magento\Framework\Data\FormFactory;
+use \Magento\Framework\Registry;
 
 /**
  * Block general tab.
@@ -18,40 +16,24 @@ use Magento\Store\Model\System\Store;
  */
 class General extends Generic implements TabInterface
 {
-    /**
-     * @var Store
-     */
-    protected $_systemStore;
-
-    /**
-     * @var Enabledisable
-     */
-    protected $_enabledisable;
 
     /**
      * General constructor.
      *
-     * @param Store         $systemStore
-     * @param Enabledisable $enabledisable
      * @param Context       $context
      * @param Registry      $registry
      * @param FormFactory   $formFactory
+     * @param Status        $options
      * @param array         $data
      */
     public function __construct(
-        Store $systemStore,
-        Enabledisable $enabledisable,
         Context $context,
         Registry $registry,
         FormFactory $formFactory,
-        \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
-        \ImproDev\EmailManager\Model\Status $options,
+        Status $options,
         array $data = []
     ) {
-        $this->_systemStore = $systemStore;
-        $this->_enabledisable = $enabledisable;
         $this->_options = $options;
-        $this->_wysiwygConfig = $wysiwygConfig;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
@@ -112,7 +94,7 @@ class General extends Generic implements TabInterface
                 'enctype' => 'multipart/form-data',
                 'action' => $this->getData('action'),
                 'method' => 'post'
-            ]
+                ]
             ]
         );
 
@@ -125,7 +107,6 @@ class General extends Generic implements TabInterface
                 'name' => 'block[id]',
             ]);
         }
-
 
         $fieldset->addField(
             'name',
@@ -162,8 +143,6 @@ class General extends Generic implements TabInterface
             ]
         );
 
-        $wysiwygConfig = $this->_wysiwygConfig->getConfig(['tab_id' => $this->getTabId()]);
-
         $fieldset->addField(
             'message',
             'label',
@@ -172,7 +151,6 @@ class General extends Generic implements TabInterface
                 'label' => __('Message'),
                 'style' => 'height:36em;',
                 'required' => false,
-//                'config' => $wysiwygConfig
             ]
         );
 
@@ -186,7 +164,6 @@ class General extends Generic implements TabInterface
                 'title' => __('Status'),
                 'values' => $this->_options->getOptionArray(),
                 'class' => 'status',
-                'required' => true,
             ]
         );
 
@@ -194,12 +171,6 @@ class General extends Generic implements TabInterface
         if ($model->getId()) {
             $form->setValues($model->getData());
         }
-//        else {
-//            $form->setValues([
-//                'status' => BlockInterface::STATUS_ENABLED,
-//                'store_id' => [0]
-//            ]);
-//        }
 
         return $form;
     }

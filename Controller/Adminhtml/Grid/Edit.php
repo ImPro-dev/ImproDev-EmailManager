@@ -50,6 +50,6 @@ class Edit extends \Magento\Backend\App\Action
     }
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('ImproDev_EmailManager::email_manager');
+        return $this->_authorization->isAllowed('ImproDev_EmailManager::edit_row');
     }
 }
