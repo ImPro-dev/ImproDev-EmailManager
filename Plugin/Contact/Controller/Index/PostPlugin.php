@@ -6,7 +6,7 @@
  *
  */
 
-namespace ImproDev\EmailManager\Plugin\Controller\Index;
+namespace ImproDev\EmailManager\Plugin\Contact\Controller\Index;
 
 use \Magento\Contact\Controller\Index\Post;
 
@@ -27,11 +27,6 @@ class PostPlugin
         try {
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
             $rowData = $objectManager->create('ImproDev\EmailManager\Model\Grid');
-
-            $data['phone'] = $data['telephone'];
-            $data['message'] = $data['comment'];
-            unset($data['telephone'], $data['comment']);
-
             $rowData->setData($data);
             $rowData->save();
         } catch (Exception $e) {

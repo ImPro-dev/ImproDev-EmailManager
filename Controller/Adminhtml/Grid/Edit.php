@@ -34,9 +34,8 @@ class Edit extends \Magento\Backend\App\Action
         $rowData = $this->_objectManager->create('ImproDev\EmailManager\Model\Grid');
         if ($rowId) {
             $rowData = $rowData->load($rowId);
-            $rowTitle = $rowData->getTitle();
             if (!$rowData->getEntityId()) {
-                $this->messageManager->addError(__('row data no longer exist.'));
+                $this->messageManager->addErrorMessage(__('row data no longer exist.'));
                 $this->_redirect('emailmanager/grid/index');
                 return;
             }
@@ -44,7 +43,7 @@ class Edit extends \Magento\Backend\App\Action
 
         $this->_coreRegistry->register('row_data', $rowData);
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $title = $rowId ? __('Edit Row Data ').$rowTitle : __('Add Row Data');
+        $title = __('Email Information ');
         $resultPage->getConfig()->getTitle()->prepend($title);
         return $resultPage;
     }

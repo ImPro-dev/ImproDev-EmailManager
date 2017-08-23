@@ -19,7 +19,7 @@ class Tabs extends BaseTabs
         parent::_construct();
         $this->setId('email_manager_block_tabs');
         $this->setDestElementId('edit_form');
-        $this->setTitle('Email Details');
+        $this->setTitle('Email');
     }
 
     /**
@@ -30,8 +30,8 @@ class Tabs extends BaseTabs
         $this->addTab(
             'main_section',
             [
-                'label' => __('Received Email'),
-                'title' => __('Received Email'),
+                'label' => __('Email Details'),
+                'title' => __('Email Details'),
                 'content' => $this->getLayout()->createBlock(
                     'ImproDev\EmailManager\Block\Adminhtml\Grid\Edit\Tab\General'
                 )->toHtml(),

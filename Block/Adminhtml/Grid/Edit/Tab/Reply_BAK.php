@@ -86,11 +86,19 @@ class Reply extends Generic implements TabInterface
      */
     protected function _buildForm()
     {
-        $form = $this->_formFactory->create();
+        $form = $this->_formFactory->create(
+            ['data' => [
+                'id' => 'reply_form',
+                'enctype' => 'multipart/form-data',
+                'action' => $this->getData('action'),
+                'method' => 'post'
+            ]
+            ]
+        );
 
         $model = $this->_getModel();
 
-        $fieldset = $form->addFieldset('reply', [
+        $fieldset = $form->addFieldset('general', [
             'legend' => __('Reply to Email'),
         ]);
 
@@ -116,6 +124,7 @@ class Reply extends Generic implements TabInterface
             ]
         );
 
+
         $wysiwygConfig = $this->_wysiwygConfig->getConfig(['tab_id' => $this->getTabId()]);
 
         $fieldset->addField(
@@ -135,9 +144,9 @@ class Reply extends Generic implements TabInterface
             'submit',
             [
                 'name' => 'reply',
-                'label' => 'Reply to',
+                'label' => false,
                 'value' => __('Reply'),
-                'style' => 'width:auto;',
+                'class' => 'primary',
                 'required' => false,
             ]
         );

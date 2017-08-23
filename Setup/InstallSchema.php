@@ -8,7 +8,6 @@ use Magento\Framework\Setup\SchemaSetupInterface;
 
 class InstallSchema implements InstallSchemaInterface
 {
-
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup;
@@ -41,14 +40,14 @@ class InstallSchema implements InstallSchemaInterface
                 'Sender Email'
             )
             ->addColumn(
-                'phone',
+                'telephone',
                 \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                 255,
                 ['nullable' => true, 'default' => null],
                 'Sender Phone'
             )
             ->addColumn(
-                'message',
+                'comment',
                 \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                 1024,
                 ['nullable' => true, 'default' => null],

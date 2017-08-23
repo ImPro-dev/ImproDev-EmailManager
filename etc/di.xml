@@ -15,7 +15,6 @@
     </type>
 
     <preference for="ImproDev\EmailManager\Api\BlockRepositoryInterface" type="ImproDev\EmailManager\Model\BlockRepository"/>
-    <!--<preference for="ImproDev\EmailManager\Api\BlockItemRepositoryInterface" type="ImproDev\EmailManager\Model\BlockItemRepository"/>-->
 
     <virtualType name="EmailManagerGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
         <arguments>
@@ -33,7 +32,7 @@
     </virtualType>
 
     <type name="Magento\Contact\Controller\Index\Post">
-        <plugin name="contact_form_controller" type="ImproDev\EmailManager\Plugin\Controller\Index\PostPlugin" sortOrder="100"/>
+        <plugin name="contact_form_controller" type="ImproDev\EmailManager\Plugin\Contact\Controller\Index\PostPlugin" sortOrder="100"/>
     </type>
 
 </config>

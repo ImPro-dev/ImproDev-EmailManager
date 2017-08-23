@@ -14,21 +14,21 @@ class Status implements OptionSourceInterface
      */
     public function getOptionArray()
     {
-        $options = ['1' => __('Answered'),'0' => __('Not Answered')];
+        $options = ['1' => __('Replied'),'0' => __('Not Replied')];
         return $options;
     }
 
-    /**
-     * Get Grid row status labels array with empty value for option element.
-     *
-     * @return array
-     */
-    public function getAllOptions()
-    {
-        $res = $this->getOptions();
-        array_unshift($res, ['value' => '', 'label' => '']);
-        return $res;
-    }
+//    /**
+//     * Get Grid row status labels array with empty value for option element.
+//     *
+//     * @return array
+//     */
+//    public function getAllOptions()
+//    {
+//        $res = $this->getOptions();
+//        array_unshift($res, ['value' => '', 'label' => '']);
+//        return $res;
+//    }
 
     /**
      * Get Grid row type array for option element.

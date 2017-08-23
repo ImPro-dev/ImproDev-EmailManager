@@ -36,16 +36,31 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      */
     protected function _construct()
     {
-        $this->_objectId = 'row_id';
+        $this->_objectId = 'entity_id';
         $this->_blockGroup = 'ImproDev_EmailManager';
         $this->_controller = 'adminhtml_grid';
         parent::_construct();
         if ($this->_isAllowedAction('ImproDev_EmailManager::email_manager')) {
             $this->buttonList->update('save', 'label', __('Save'));
+            $this->buttonList->add(
+                'saveandcontinue',
+                [
+                    'label' => __('Save and Continue Edit'),
+                    'class' => 'save',
+                    'data_attribute' => [
+                        'mage-init' => [
+                            'button' => [
+                                'event' => 'saveAndContinueEdit',
+                                'target' => '#edit_form'
+                            ],
+                        ],
+                    ]
+                ],
+                -100
+            );
         } else {
             $this->buttonList->remove('save');
         }
-        $this->buttonList->remove('reset');
     }
 
     /**

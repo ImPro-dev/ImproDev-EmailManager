@@ -87,24 +87,16 @@ class General extends Generic implements TabInterface
      */
     protected function _buildForm()
     {
-        $model = $this->_coreRegistry->registry('row_data');
-        $form = $this->_formFactory->create(
-            ['data' => [
-                'id' => 'edit_form',
-                'enctype' => 'multipart/form-data',
-                'action' => $this->getData('action'),
-                'method' => 'post'
-                ]
-            ]
-        );
+        $form = $this->_formFactory->create();
+        $model = $this->_getModel();
 
         $fieldset = $form->addFieldset('general', [
-            'legend' => __('General Settings'),
+            'legend' => __('Email Details'),
         ]);
 
         if ($model->getId()) {
-            $fieldset->addField('id', 'hidden', [
-                'name' => 'block[id]',
+            $fieldset->addField('entity_id', 'hidden', [
+                'name' => 'id'
             ]);
         }
 
@@ -132,7 +124,7 @@ class General extends Generic implements TabInterface
         );
 
         $fieldset->addField(
-            'phone',
+            'telephone',
             'label',
             [
                 'name' => 'phone',
@@ -144,7 +136,7 @@ class General extends Generic implements TabInterface
         );
 
         $fieldset->addField(
-            'message',
+            'comment',
             'label',
             [
                 'name' => 'message',
