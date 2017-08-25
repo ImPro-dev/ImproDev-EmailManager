@@ -55,7 +55,7 @@ class MassDelete extends \Magento\Backend\App\Action
             $email->delete();
         }
         $this->messageManager->addSuccessMessage(
-            __('A total of %1 record(s) have been deleted.', $collectionSize)
+            __('A total of %1 email(s) have been deleted.', $collectionSize)
         );
 
         return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath('*/*/');

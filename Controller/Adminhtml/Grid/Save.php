@@ -5,6 +5,7 @@ namespace ImproDev\EmailManager\Controller\Adminhtml\Grid;
 use ImproDev\EmailManager\Api\BlockRepositoryInterface;
 use ImproDev\EmailManager\Controller\Adminhtml\Grid;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Backend\App\Action;
 
 /**
@@ -12,22 +13,37 @@ use Magento\Backend\App\Action;
  */
 class Save extends Grid
 {
+
+    /**
+     * Sender email config path
+     */
+    const XML_PATH_EMAIL_SENDER = 'contact/email/sender_email_identity';
+
     /**
      * @var BlockRepositoryInterface
      */
     protected $_blockRepository;
 
     /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfig;
+
+
+    /**
      * Save constructor.
      *
      * @param BlockRepositoryInterface $blockRepository
+     * @param ScopeConfigInterface $scopeConfig
      * @param Action\Context           $context
      */
     public function __construct(
         BlockRepositoryInterface $blockRepository,
+        ScopeConfigInterface $scopeConfig,
         Action\Context $context
     ) {
         $this->_blockRepository = $blockRepository;
+        $this->scopeConfig = $scopeConfig;
         parent::__construct($context);
     }
 
@@ -39,14 +55,17 @@ class Save extends Grid
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
 
-        // If Reply, send message and set status "Replied"
-        if($data && isset($data['reply'])) {
-            $this->_sendMessage();
-            $data['status'] = 1;
-        }
-
         if ($data) {
             $model = $this->_initModel();
+
+            // If Reply, send message and set status "Replied"
+            if(isset($data['reply'])) {
+                $data['status'] = 1;
+                $model->addData($data);
+                $this->_sendMessage($model);
+                $this->messageManager->addSuccessMessage(__('Email has been successfully sent.'));
+            }
+
             $model->addData($data);
 
             try {
@@ -86,9 +105,30 @@ class Save extends Grid
             : $this->_blockRepository->getModelInstance();
     }
 
-    protected function _sendMessage()
+    protected function _sendMessage($model)
     {
-        return false;
+
+        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+        $receiverInfo = [
+            'name' => $model->getData('name'),
+            'email' => $model->getData('email')
+        ];
+
+        $senderInfo = [
+            'name' => 'Smile',
+            'email' => $this->scopeConfig->getValue(self::XML_PATH_EMAIL_SENDER, $storeScope)
+        ];
+
+        $emailTemplateVars = [
+            'name'    => $model->getData('name'),
+            'subject' => $model->getData('subject'),
+            'message' => $model->getData('reply_message')
+        ];
+
+        $this->_objectManager
+            ->get('ImproDev\EmailManager\Helper\Email')
+            ->sendMail($emailTemplateVars, $senderInfo, $receiverInfo);
+
     }
 
     /**

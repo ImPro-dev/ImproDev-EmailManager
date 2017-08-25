@@ -137,7 +137,7 @@ class Reply extends Generic implements TabInterface
                 'name' => 'reply',
                 'label' => 'Reply to',
                 'value' => __('Reply'),
-                'style' => 'width:auto;',
+                'style' => 'width:auto; padding: 7px 15px;',
                 'required' => false,
             ]
         );
